@@ -1,5 +1,6 @@
 package Dancer2::Template::Xslate;
 
+use v5.10;
 use strict;
 use warnings FATAL => "all";
 use utf8;
@@ -8,6 +9,7 @@ use Carp;
 use Moo;
 use Dancer2::Core::Types;
 use Dancer2::FileUtils qw(read_file_content);
+use File::Spec::Functions qw(splitpath);
 use Text::Xslate;
 
 # VERSION
@@ -25,14 +27,8 @@ has "+default_tmpl_ext" => (
 sub _build_engine {
     my ($self) = @_;
 
-    # Use only Text::Xslate's path-searching procedure:
-    my %config = %{ $self->config };
-    if ( my $views = $self->views ) {
-        $self->views(".");
-        %config = ( path => $views, %config);
-    }
-
-    return Text::Xslate->new(%config);
+    # Set a default path that is overridable by the engine config:
+    return Text::Xslate->new(path => ["/"], %{ $self->config });
 }
 
 sub render {
@@ -40,9 +36,12 @@ sub render {
 
     my $xslate = $self->engine;
     my $content = eval {
-        ref($tmpl) eq "SCALAR"
-            ? $xslate->render_string($$tmpl, $vars)
-            : $xslate->render($tmpl, $vars)
+        if ( ref($tmpl) eq "SCALAR" ) {
+            $xslate->render_string($$tmpl, $vars)
+        }
+        else {
+            $xslate->render($tmpl, $vars);
+        }
     };
 
     if ( my $error = $@ ) { croak $error }

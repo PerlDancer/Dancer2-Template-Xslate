@@ -1,5 +1,5 @@
 use strict;
-use warnings;
+use warnings FATAL => "all";
 use Test::More tests => 3;
 use Dancer2::Core::Hook;
 
@@ -9,8 +9,7 @@ use Dancer2::Template::Xslate;
 my $views = rel2abs(catfile((splitdir(__FILE__, 1))[0], "views"));
 
 my $txs = Dancer2::Template::Xslate->new(
-    views => ".",
-    config => { path => $views },
+    views => $views,
     layout => "main.tx",
 );
 

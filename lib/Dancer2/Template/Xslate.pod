@@ -12,7 +12,7 @@ C<config.yaml>:
     engines:
       xslate: { path: "views" }
 
-Application:
+A Dancer 2 application:
 
     use Dancer2;
 
@@ -25,16 +25,16 @@ Application:
 
 =over
 
-=item C<render($template, $tokens)>
+=item render($template, $tokens)
 
 Renders a template. C<$template> can be one of:
 
-=over
+=over 2
 
 =item *
 
-a string of the path to a template file (*.tx, not *.tt like the core template
-engines)
+a string of the path to a template file (*.tx, not *.tt like the core Dancer2
+template engines)
 
 =item *
 
