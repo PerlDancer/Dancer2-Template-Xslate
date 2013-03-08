@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+v0.0.3    2013-03-07 20:20:53 CST6CDT
     - Fixed configuration example in POD.
 
 v0.0.2    2013-03-03 14:28:01 CST6CDT
