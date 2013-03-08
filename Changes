@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+    - Fixed configuration example in POD.
+
+v0.0.2    2013-03-03 14:28:01 CST6CDT
     - Improved accomodatation of using either Dancer's "views" or
       Xslate's "path" configuration options.
     - Promoted to full release.
