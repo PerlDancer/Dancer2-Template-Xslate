@@ -1,0 +1,23 @@
+language: perl
+
+perl:
+    - "5.18"
+    - "5.14"
+    - "5.10"
+
+notifications:
+  irc:
+    channels:
+      - "irc.perl.org#dancer"
+    template:
+      - "%{branch}#%{build_number} by %{author}: %{message} (%{build_url})"
+    on_success: change
+    on_failure: always
+    use_notice: true
+
+install:
+    - dzil authordeps --missing | cpanm  --no-skip-satisfied || { cat ~/.cpanm/build.log ; false ; }
+    - dzil listdeps --author --missing | cpanm --no-skip-satisfied || { cat ~/.cpanm/build.log ; false ; }
+
+script:
+    - dzil test --author --release
