@@ -13,7 +13,7 @@ use File::Spec::Functions qw(splitpath);
 use Text::Xslate;
 use Cwd qw(abs_path);
 
-our $VERSION = 'v0.0.3'; # VERSION
+# VERSION
 # ABSTRACT: Text::Xslate template engine for Dancer2
 
 with "Dancer2::Core::Role::Template";
