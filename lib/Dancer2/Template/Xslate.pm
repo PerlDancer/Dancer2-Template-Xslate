@@ -11,6 +11,7 @@ use Dancer2::Core::Types;
 use Dancer2::FileUtils qw(read_file_content);
 use File::Spec::Functions qw(splitpath);
 use Text::Xslate;
+use Cwd qw(abs_path);
 
 # VERSION
 # ABSTRACT: Text::Xslate template engine for Dancer2
@@ -27,13 +28,22 @@ has "+default_tmpl_ext" => (
 sub _build_engine {
     my ($self) = @_;
 
+    my %config = %{ $self->config };
+    delete $config{environment}; # Dancer2 inject this vars, Text::Xslate complains about it - remove it...
+    delete $config{location}; # Dancer2 inject this vars, Text::Xslate complains about it - remove it...
+
     # Set a default path that is overridable by the engine config:
-    return Text::Xslate->new(path => ["/"], %{ $self->config });
+    return Text::Xslate->new(path => ["/"], %config);
 }
 
 sub render {
     my ($self, $tmpl, $vars) = @_;
 
+    my $abs_path = abs_path($self->config->{path});
+    my $abs_tmpl = abs_path(ref($tmpl) ? $$tmpl : $tmpl);
+    $abs_tmpl =~ s/^\Q$abs_path\E\/?//;
+    $tmpl = $abs_tmpl;
+    
     my $xslate = $self->engine;
     my $content = eval {
         if ( ref($tmpl) eq "SCALAR" ) {
