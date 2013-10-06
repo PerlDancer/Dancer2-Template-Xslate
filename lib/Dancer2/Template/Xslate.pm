@@ -27,8 +27,12 @@ has "+default_tmpl_ext" => (
 sub _build_engine {
     my ($self) = @_;
 
+    my %config = %{ $self->config };
+    delete $config{environment}; # Dancer2 inject this var, Text::Xslate complains about it - remove it...
+    delete $config{location}; # Dancer2 inject this var, Text::Xslate complains about it - remove it...
+
     # Set a default path that is overridable by the engine config:
-    return Text::Xslate->new(path => ["/"], %{ $self->config });
+    return Text::Xslate->new(path => ["/"], %config);
 }
 
 sub render {
