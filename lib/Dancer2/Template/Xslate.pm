@@ -5,13 +5,11 @@ use strict;
 use warnings FATAL => "all";
 use utf8;
 
-use Carp;
+use Carp qw(croak);
 use Moo;
 use Dancer2::Core::Types;
-use Dancer2::FileUtils qw(read_file_content);
-use File::Spec::Functions qw(splitpath);
 use Text::Xslate;
-use Cwd qw(abs_path);
+use File::Spec::Functions qw(abs2rel file_name_is_absolute);
 
 # VERSION
 # ABSTRACT: Text::Xslate template engine for Dancer2
@@ -29,28 +27,29 @@ sub _build_engine {
     my ($self) = @_;
 
     my %config = %{ $self->config };
-    delete $config{environment}; # Dancer2 inject this vars, Text::Xslate complains about it - remove it...
-    delete $config{location}; # Dancer2 inject this vars, Text::Xslate complains about it - remove it...
 
-    # Set a default path that is overridable by the engine config:
-    return Text::Xslate->new(path => ["/"], %config);
+    # Dancer2 inject a couple options without asking; Text::Xslate protests:
+    delete $config{environment};
+    if ( my $dancer_path = delete $config{location} ) {
+        $config{path} //= [$dancer_path];
+    }
+
+    return Text::Xslate->new(%config);
 }
 
 sub render {
     my ($self, $tmpl, $vars) = @_;
 
-    my $abs_path = abs_path($self->config->{path});
-    my $abs_tmpl = abs_path(ref($tmpl) ? $$tmpl : $tmpl);
-    $abs_tmpl =~ s/^\Q$abs_path\E\/?//;
-    $tmpl = $abs_tmpl;
-    
     my $xslate = $self->engine;
     my $content = eval {
         if ( ref($tmpl) eq "SCALAR" ) {
             $xslate->render_string($$tmpl, $vars)
         }
         else {
-            $xslate->render($tmpl, $vars);
+            my $rel_path = file_name_is_absolute($tmpl)
+                ? abs2rel($tmpl)
+                : $tmpl;
+            $xslate->render($rel_path, $vars);
         }
     };
 
