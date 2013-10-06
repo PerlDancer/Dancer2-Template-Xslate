@@ -14,7 +14,10 @@ my $txs = Dancer2::Template::Xslate->new(
 );
 
 isa_ok $txs, "Dancer2::Template::Xslate";
-ok $txs->does("Dancer2::Core::Role::Template");
+ok(
+    $txs->does("Dancer2::Core::Role::Template"),
+    'The object does template processing.'
+);
 
 $txs->add_hook(
     Dancer2::Core::Hook->new(
@@ -60,7 +63,7 @@ $txs->add_hook(
 
 
 my $result = $txs->process("index.tx", {var => 42});
-is $result, <<RESULT;
+is $result, <<RESULT, 'Template processing returned expected result';
 [top]
 var = 42
 before_layout_render = 1
