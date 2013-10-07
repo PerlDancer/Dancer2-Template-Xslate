@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+v0.0.4    2013-10-07 10:15:35 America/Chicago
     - Handled Xslate configuration options presumptively inserted by Dancer2.
     - Fixed pathing issues on MS Windows.
     - Thanks to Sören Kornetzki (burnersk on GitHub) for patches and feedback.
