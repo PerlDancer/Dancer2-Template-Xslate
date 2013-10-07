@@ -5,13 +5,13 @@ Revision history for {{$dist->name}}
     - Fixed pathing issues on MS Windows.
     - Thanks to Sören Kornetzki (burnersk on GitHub) for patches and feedback.
 
-v0.0.3    2013-03-07 20:20:53 CST6CDT
+v0.0.3    2013-03-07 20:20:53 America/Chicago
     - Fixed configuration example in POD.
 
-v0.0.2    2013-03-03 14:28:01 CST6CDT
+v0.0.2    2013-03-03 14:28:01 America/Chicago
     - Improved accomodatation of using either Dancer's "views" or
       Xslate's "path" configuration options.
     - Promoted to full release.
 
-v0.0.1    2013-03-02 23:49:16 CST6CDT
+v0.0.1    2013-03-02 23:49:16 America/Chicago
     - First version, released on an unsuspecting world.
