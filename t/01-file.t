@@ -1,3 +1,6 @@
+#!/usr/bin/env perl
+
+use v5.10;
 use strict;
 use warnings FATAL => "all";
 use Test::More tests => 3;
@@ -63,7 +66,7 @@ $txs->add_hook(
 
 
 my $result = $txs->process("index.tx", {var => 42});
-is $result, <<RESULT, 'Template processing returned expected result';
+is $result, <<RESULT, 'Template processing returned expected result.';
 [top]
 var = 42
 before_layout_render = 1

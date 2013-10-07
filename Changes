@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+    - Handled Xslate configuration options presumptively inserted by Dancer2.
+    - Fixed pathing issues on MS Windows.
+    - Thanks to Sören Kornetzki (burnersk on GitHub) for patches and feedback.
 
 v0.0.3    2013-03-07 20:20:53 CST6CDT
     - Fixed configuration example in POD.
