@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+v0.0.5    2013-10-08 11:55:13 America/Chicago
     - Bumped Dancer2 version requirement.
     - Promoted to full release.
 
