@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+    - Bumped Dancer2 version requirement.
+    - Promoted to full release.
 
 v0.0.4    2013-10-07 10:15:35 America/Chicago
     - Handled Xslate configuration options presumptively inserted by Dancer2.
