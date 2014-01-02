@@ -50,7 +50,7 @@ sub render {
         }
         else {
             my $rel_path = file_name_is_absolute($tmpl)
-                ? abs2rel($tmpl)
+                ? abs2rel($tmpl, $self->config->{location})
                 : $tmpl;
             $xslate->render($rel_path, $vars);
         }
