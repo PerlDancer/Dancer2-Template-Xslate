@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+v0.0.6    2014-01-04 09:57:20 America/Chicago
     - Fixed issue causing template path to not be found when a PSGI dispatcher
       is in a directory other than the default (contributed by patzim on
       GitHub).
