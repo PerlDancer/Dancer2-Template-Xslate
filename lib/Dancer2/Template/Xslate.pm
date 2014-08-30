@@ -52,9 +52,9 @@ sub render {
                 : $tmpl;
             $xslate->render($rel_path, $vars);
         }
-    } or do {
-        croak $@;
     };
+
+    $@ and croak $@;
 
     return $content;
 }
