@@ -1,9 +1,12 @@
 #!/usr/bin/env perl
 
-use v5.10;
 use strict;
-use warnings FATAL => "all";
+use warnings;
+
+use Plack::Test;
+use HTTP::Request::Common;
 use Test::More tests => 3;
+
 use Dancer2::Core::Hook;
 
 use File::Spec::Functions qw(rel2abs catfile splitdir);
@@ -12,8 +15,9 @@ use Dancer2::Template::Xslate;
 my $views = rel2abs(catfile((splitdir(__FILE__, 1))[0], "views"));
 
 my $txs = Dancer2::Template::Xslate->new(
-    views => $views,
+    views  => $views,
     layout => "main.tx",
+    config => { cache => 0 },
 );
 
 isa_ok $txs, "Dancer2::Template::Xslate";
@@ -64,10 +68,20 @@ $txs->add_hook(
     )
 );
 
+{
+    package Bar;
+    use Dancer2;
 
-my $result = $txs->process("index.tx", {var => 42});
-is $result, <<RESULT, 'Template processing returned expected result.';
-[top]
+    # set template engine for first app
+    Dancer2->runner->apps->[0]->set_template_engine($txs);
+    #app->default_config->{'template'} = 'Xslate';
+    #setting template => 'Xslate';
+
+    get '/' => sub { template index => { var => 42 } };
+}
+
+my $app    = Dancer2->psgi_app;
+my $result = '[top]
 var = 42
 before_layout_render = 1
 ---
@@ -82,4 +96,15 @@ content added in before_layout_render
 [bottom]
 
 content added in after_layout_render
-RESULT
+';
+
+test_psgi $app, sub {
+    my $cb = shift;
+
+    is(
+        $cb->( GET '/' )->content,
+        $result,
+        '[GET /] Correct content with template hooks',
+    );
+};
+
