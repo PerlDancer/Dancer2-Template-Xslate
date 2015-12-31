@@ -1,6 +1,6 @@
 package Dancer2::Template::Xslate;
 
-use v5.10;
+use v5.8;
 use strict;
 use warnings FATAL => 'all';
 use utf8;
@@ -32,7 +32,9 @@ sub _build_engine {
     # Dancer2 inject a couple options without asking; Text::Xslate protests:
     delete $config{environment};
     if ( my $location = delete $config{location} ) {
-        $config{path} //= [$location];
+		unless (exists $config{path} and defined $config{path}) {
+			$config{path} = [$location];
+		}
     }
 
     return Text::Xslate->new(%config);
