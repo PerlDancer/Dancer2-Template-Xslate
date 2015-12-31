@@ -32,7 +32,7 @@ sub _build_engine {
     # Dancer2 inject a couple options without asking; Text::Xslate protests:
     delete $config{environment};
     if ( my $location = delete $config{location} ) {
-		unless (exists $config{path} and defined $config{path}) {
+		unless (defined $config{path}) {
 			$config{path} = [$location];
 		}
     }
