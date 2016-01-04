@@ -29,12 +29,12 @@ sub _build_engine {
 
     my %config = %{ $self->config };
 
-    # Dancer2 inject a couple options without asking; Text::Xslate protests:
+    # Dancer2 injects a couple options without asking; Text::Xslate protests:
     delete $config{environment};
     if ( my $location = delete $config{location} ) {
-		unless (defined $config{path}) {
-			$config{path} = [$location];
-		}
+        unless (defined $config{path}) {
+            $config{path} = [$location];
+        }
     }
 
     return Text::Xslate->new(%config);

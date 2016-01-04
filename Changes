@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+    - Lowered Perl version requirement to v5.8 (wyoung on GitHub).
 
 v0.0.7    2014-08-31 11:30:11-05:00 America/Chicago
     - Fixed tests, code. Now works with Dancer2 0.150000. (Sawyer X)
