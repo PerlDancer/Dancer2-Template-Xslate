@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+v0.1.0    2016-01-03 19:24:06-06:00 America/Chicago
     - Lowered Perl version requirement to v5.8 (wyoung on GitHub).
 
 v0.0.7    2014-08-31 11:30:11-05:00 America/Chicago
