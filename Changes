@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+    - Raised Dancer2 version requirement to 0.15.
 
 v0.1.0    2016-01-03 19:24:06-06:00 America/Chicago
     - Lowered Perl version requirement to v5.8 (wyoung on GitHub).
