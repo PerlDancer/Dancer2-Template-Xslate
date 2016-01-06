@@ -17,7 +17,7 @@ A Dancer 2 application:
 
     use Dancer2;
 
-    get /page/:number => sub {
+    get '/page/:number' => sub {
         my $page_num = params->{number};
         template "foo.tx", { page_num => $page_num };
     };
