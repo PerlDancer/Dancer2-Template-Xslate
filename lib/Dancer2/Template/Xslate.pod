@@ -9,9 +9,6 @@ Dancer2::Template::Xslate - Text::Xslate template engine for Dancer2
 C<config.yaml>:
 
     template: Xslate
-    engines:
-      template:
-        Xslate: { path: "views" }
 
 A Dancer 2 application:
 
