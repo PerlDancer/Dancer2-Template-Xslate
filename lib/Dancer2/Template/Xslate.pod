@@ -29,7 +29,7 @@ In C<config.yaml>, comment the C<layout> keyword:
     # layout: "main"
 
 If you don't, Dancer2 will render your template and then render
-the C<layout> template. If your layout template doesnt have the
+the C<layout> template. If your layout template doesn't have the
 C<content> placeholder only the layout HTML will be returned.
 
 =head1 METHODS
