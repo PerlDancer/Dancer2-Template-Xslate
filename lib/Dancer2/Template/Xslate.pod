@@ -19,6 +19,19 @@ A Dancer 2 application:
         template "foo.tx", { page_num => $page_num };
     };
 
+If you want to use cascading templates to manage page layouts
+make sure you disable Dancer2 layouts.
+
+In C<config.yaml>, comment the C<layout> keyword:
+
+    # The default layout to use for your application (located in
+    # views/layouts/main.tt)
+    # layout: "main"
+
+If you don't, Dancer2 will render your template and then render
+the C<layout> template. If your layout template doesnt have the
+C<content> placeholder only the layout HTML will be returned.
+
 =head1 METHODS
 
 =over
